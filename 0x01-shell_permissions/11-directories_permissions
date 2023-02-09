@@ -1,3 +1,2 @@
 #!/bin/bash
 chmod a+X *
-# X indicates apply only for directories, * indicates aply to all
