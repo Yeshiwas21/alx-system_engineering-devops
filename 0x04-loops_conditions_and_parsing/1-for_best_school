@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#It displays Best School to times using for loop
+for ((n=1; n<=10; n++))
+do
+echo "Best School"
+done
