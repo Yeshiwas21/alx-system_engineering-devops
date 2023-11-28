@@ -1,7 +1,19 @@
 #!/usr/bin/env bash
+
 # Installs nginx server
 apt-get update
 apt-get -y install nginx
 ufw allow 'Nginx HTTP'
+
+# Create index.html with "Hello World!" content
 echo "Hello World!" > /var/www/html/index.html
+
+# Start nginx
 service nginx start
+
+# Check if nginx is running
+if ! systemctl is-active --quiet nginx; then
+    echo "Nginx failed to start. Check the error logs."
+else
+    echo "Nginx successfully installed and configured."
+fi
