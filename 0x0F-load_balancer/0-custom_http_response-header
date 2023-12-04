@@ -1,12 +1,35 @@
 #!/usr/bin/env bash
-# This script configures Nginx to add a custom header to the HTTP response
+# Configures Nginx on a new Ubuntu machine to add a custom header to the HTTP response
 
 # Update package list and install Nginx
 sudo apt-get update
 sudo apt-get -y install nginx
 
-# Create a custom Nginx configuration file
-echo "add_header X-Served-By \$(hostname);" | sudo tee /etc/nginx/conf.d/custom_header
+# Create HTML pages
+sudo mkdir -p /var/www/html
+sudo touch /var/www/html/index.html
+echo "Holberton School" | sudo tee /var/www/html/index.html > /dev/null
+sudo touch /var/www/html/404.html
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html > /dev/null
+
+# Configure Nginx with custom header
+printf %s "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    add_header X-Served-By \$hostname;
+    root   /var/www/html;
+    index  index.html index.htm;
+
+    location /redirect_me {
+        return 301 http://cuberule.com/;
+    }
+
+    error_page 404 /404.html;
+    location /404 {
+        root /var/www/html;
+        internal;
+    }
+}" | sudo tee /etc/nginx/sites-available/default > /dev/null
 
 # Restart Nginx to apply the changes
 sudo systemctl restart nginx
