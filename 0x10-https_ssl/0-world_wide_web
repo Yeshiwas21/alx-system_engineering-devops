@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# Function to display subdomain information
+display_info() {
+    local subdomain=$1
+    local domain=$2
+    local record_type=$3
+    local destination=$4
+
+    echo "The subdomain $subdomain is a $record_type record and points to $destination"
+}
+
+# Check if domain and subdomain parameters are provided
+if [ "$#" -eq 1 ]; then
+    # If only domain is provided, display information for default subdomains
+    subdomains=("www" "lb-01" "web-01" "web-02")
+
+    for subdomain in "${subdomains[@]}"; do
+        result=$(dig "$subdomain.$1" +short)
+        record_type=$(dig "$subdomain.$1" | awk '/ANSWER SECTION/ {getline; print $4}')
+        display_info "$subdomain" "$1" "$record_type" "$result"
+    done
+elif [ "$#" -eq 2 ]; then
+    # If both domain and subdomain are provided, display information for the specified subdomain
+    result=$(dig "$2.$1" +short)
+    record_type=$(dig "$2.$1" | awk '/ANSWER SECTION/ {getline; print $4}')
+    display_info "$2" "$1" "$record_type" "$result"
+else
+    # Display usage information if incorrect number of parameters are provided
+    echo "Usage: $0 <domain> [subdomain]"
+    exit 1
+fi
