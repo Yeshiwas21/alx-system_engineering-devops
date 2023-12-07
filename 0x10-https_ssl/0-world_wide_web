@@ -3,13 +3,15 @@
 # Display information about subdomains.
 
 domain_information() {
-    local result record_type destination
+    local subdomain="$2"
+    local domain="$1"
 
-    result=$(dig "$2.$1" +short)
-    record_type=$(dig "$2.$1" | awk '/ANSWER SECTION/ {getline; print $4}')
-    destination=$(echo "$result" | tr -d '\n' | awk '{$1=$1};1')
-
-    echo "The subdomain $2 is a $record_type record and points to $destination"
+    if [ -n "$subdomain" ]; then
+        dig_output=$(dig "$subdomain.$domain" +short)
+        record_type=$(dig "$subdomain.$domain" | awk '/ANSWER SECTION/ {getline; print $4}')
+        destination=$(echo "$dig_output" | tr -d '\n')
+        echo "The subdomain $subdomain is a $record_type record and points to $destination"
+    fi
 }
 
 if [ "$#" -eq 1 ]; then
