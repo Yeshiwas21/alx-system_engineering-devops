@@ -1,19 +1,28 @@
 #!/usr/bin/env bash
-# Usage: ./1-world_wide_web <domain> <subdomain>
+# Usage: ./0-world_wide_web <domain> [subdomain]
 # Display information about subdomains.
 
-domain_information () {
-    line=$(dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | tr '\t' '\n' | tail -2 | tr '\n' ' ')
-    echo "$2 $line" | awk '{print "The subdomain " $1 " is a " $2 " record and points to " $3}'
+domain_information() {
+    local result record_type destination
+
+    result=$(dig "$2.$1" +short)
+    record_type=$(dig "$2.$1" | awk '/ANSWER SECTION/ {getline; print $4}')
+    destination=$(echo "$result" | tr '\n' ' ')
+
+    echo "The subdomain $2 is a $record_type record and points to $destination"
 }
 
-if [ "$#" == 1 ]
-then
-  domain_information "$1" "www"
-  domain_information "$1" "lb-01"
-  domain_information "$1" "web-01"
-  domain_information "$1" "web-02"
-elif [ "$#" == 2 ]
-then
-  domain_information "$1" "$2"
+if [ "$#" -eq 1 ]; then
+    # Display information for default subdomains
+    subdomains=("www" "lb-01" "web-01" "web-02")
+
+    for subdomain in "${subdomains[@]}"; do
+        domain_information "$1" "$subdomain"
+    done
+elif [ "$#" -eq 2 ]; then
+    # Display information for the specified subdomain
+    domain_information "$1" "$2"
+else
+    echo "Usage: $0 <domain> [subdomain]"
+    exit 1
 fi
