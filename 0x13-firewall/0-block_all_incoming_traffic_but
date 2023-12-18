@@ -18,4 +18,4 @@ ufw allow 443/tcp  # HTTPS
 ufw enable
 
 # Display the status to confirm the rules
-ufw status
+ufw status verbose
