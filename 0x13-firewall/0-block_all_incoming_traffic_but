@@ -1,30 +1,5 @@
-#!/bin/bash
-
-# Update package list
-apt-get update
-
-# Install ufw (Uncomplicated Firewall)
-apt-get install -y ufw
-
-# Set default incoming policy to deny
-ufw default deny incoming
-
-# Allow incoming traffic on specific ports
-ufw allow 22/tcp   # SSH
-ufw allow 80/tcp   # HTTP
-ufw allow 443/tcp  # HTTPS
-
-# Enable the firewall
-ufw --force enable
-
-# Display the status to confirm the rules
-ufw status verbose
-
-# Check SSH connectivity
-ssh localhost 'echo SSH is working'
-
-# Check HTTP connectivity
-curl -I http://localhost
-
-# Check HTTPS connectivity
-curl -I https://localhost
+sudo ufw default deny incoming
+sudo ufw allow ssh
+sudo ufw allow 443/tcp
+sudo ufw allow 80/tcp
+sudo ufw enable
