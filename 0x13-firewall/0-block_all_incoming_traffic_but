@@ -15,7 +15,16 @@ ufw allow 80/tcp   # HTTP
 ufw allow 443/tcp  # HTTPS
 
 # Enable the firewall
-ufw enable
+ufw --force enable
 
 # Display the status to confirm the rules
 ufw status verbose
+
+# Check SSH connectivity
+ssh localhost 'echo SSH is working'
+
+# Check HTTP connectivity
+curl -I http://localhost
+
+# Check HTTPS connectivity
+curl -I https://localhost
