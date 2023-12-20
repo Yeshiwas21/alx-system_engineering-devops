@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Description: Install MySQL 5.7.x on web-01 and web-02 servers
+
+# Update package list
+apt-get update
+
+# Install MySQL server and client
+DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server mysql-client
+
+# Check MySQL version
+mysql --version
