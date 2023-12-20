@@ -7,5 +7,12 @@ apt-get update
 # Install MySQL server and client
 DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server mysql-client
 
+# Check if MySQL service is running
+if systemctl is-active --quiet mysql; then
+    echo "MySQL service is running."
+else
+    echo "MySQL service failed to start. Check the logs for more information."
+fi
+
 # Check MySQL version
 mysql --version
