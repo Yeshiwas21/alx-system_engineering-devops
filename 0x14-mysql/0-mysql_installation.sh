@@ -5,8 +5,8 @@
 sudo apt-get update
 sudo apt-get upgrade -y
 
-# Install MySQL server (8.0.x)
-sudo apt-get install -y mysql-server
+# Install MySQL server (5.7.x)
+sudo apt-get install -y mysql-server-5.7
 
 # Check MySQL version
 mysql --version
