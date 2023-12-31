@@ -1,28 +1,7 @@
-#!/bin/bash
-
-# Install nginx
+#!/usr/bin/env bash
+# Installs nginx server
 apt-get update
 apt-get -y install nginx
-
-# Configure nginx to listen on port 80
-sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
-
-# Restart nginx without using systemctl
-service nginx restart
-
-# Create index.html with "Hello World!" content
+ufw allow 'Nginx HTTP'
 echo "Hello World!" > /var/www/html/index.html
-
-# Check if nginx is running
-if pgrep -x "nginx" >/dev/null; then
-    echo "Nginx successfully installed and running."
-
-    # Check if the page contains "Hello World!"
-    if grep -q "Hello World!" /var/www/html/index.html; then
-        echo "Page content is correct."
-    else
-        echo "Page content is incorrect. Check the configuration."
-    fi
-else
-    echo "Nginx failed to start. Check the error logs."
-fi
+service nginx start
