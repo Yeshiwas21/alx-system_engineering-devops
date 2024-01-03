@@ -1,0 +1,26 @@
+Introduction:
+When you type "https://www.google.com" into your browser and hit Enter, a complex series of events is set into motion, ultimately culminating in the display of the Google homepage on your screen. In this blog post, we will break down the entire process step by step, delving into the realms of DNS, TCP/IP, firewalls, HTTPS/SSL, load balancers, web servers, application servers, and databases.
+
+1. DNS Request:
+The journey begins with a Domain Name System (DNS) request. The browser needs to convert the human-readable domain name (www.google.com) into an IP address that servers can understand. The DNS resolver takes charge, querying authoritative DNS servers to obtain the correct IP address associated with the domain.
+
+2. TCP/IP:
+With the IP address in hand, the browser establishes a Transmission Control Protocol/Internet Protocol (TCP/IP) connection to the server. TCP ensures reliable data transfer, breaking down the information into packets and guaranteeing their orderly arrival at the destination.
+
+3. Firewall:
+As the data packets traverse the internet, they may encounter firewalls, which act as barriers to unauthorized access. Firewalls play a crucial role in ensuring the security and integrity of the communication by examining and controlling incoming and outgoing traffic.
+
+4. HTTPS/SSL:
+To secure the communication between the browser and the server, the Hypertext Transfer Protocol Secure (HTTPS) comes into play. It employs the Secure Sockets Layer (SSL) or its successor, the Transport Layer Security (TLS), to encrypt the data, protecting it from interception and tampering.
+
+5. Load Balancer:
+In the era of high-traffic websites, load balancing becomes essential. Load balancers distribute incoming requests across multiple servers, ensuring optimal resource utilization, preventing server overload, and enhancing the overall performance and reliability of the web application.
+
+6. Web Server:
+Upon reaching the destination server, the web server takes over. It processes the incoming request, retrieves the requested web page or resource, and sends it back to the browser. Popular web servers include Apache, Nginx, and Microsoft Internet Information Services (IIS).
+
+7. Application Server:
+For dynamic content or interactive features, an application server may be involved. It executes server-side code, interacts with databases, and generates content dynamically based on user requests. Common application servers include Tomcat, Node.js, and Microsoft ASP.NET.
+
+8. Database:
+If the requested content involves fetching data from a database, the application server communicates with the database server to retrieve the necessary information. Databases, such as MySQL, PostgreSQL, or MongoDB, store and manage the structured data used by web applications.
