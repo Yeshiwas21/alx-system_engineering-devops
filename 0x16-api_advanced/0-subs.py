@@ -2,6 +2,7 @@
 """
 0-subs
 """
+
 import requests
 
 def number_of_subscribers(subreddit):
@@ -20,8 +21,8 @@ def number_of_subscribers(subreddit):
     # Custom User-Agent to avoid Too Many Requests error
     headers = {'User-Agent': 'my_bot/0.1'}
 
-    # Make the API request
-    response = requests.get(url, headers=headers)
+    # Make the API request without following redirects
+    response = requests.get(url, headers=headers, allow_redirects=False)
 
     # Check if the request was successful (status code 200)
     if response.status_code == 200:
