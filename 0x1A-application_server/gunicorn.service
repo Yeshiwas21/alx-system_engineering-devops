@@ -1,0 +1,30 @@
+1 [Unit]
+  2 Description=gunicorn instance to serve AirBnBClone
+  3 # start after the network is available
+  4 After=network.target
+  5 
+  6 [Service]
+  7 # run the service under 'ubuntu' user
+  8 User=ubuntu
+  9 
+ 10 # set the working directory
+ 11 WorkingDirectory=/home/ubuntu/AirBnB_clone_v4
+ 12 # start Gunicorn with 3 workers, binding to 0.0.0.0:5003, log error to /tmp/airbnb-error.log
+ 13 ExecStart=/usr/bin/gunicorn \
+ 14           --error-logfile /tmp/airbnb-error.log \
+ 15           --access-logfile /tmp/airbnb-access.log \
+ 16           --bind unix:/0.0.0.0:5003 \
+ 17           --workers 3 \
+ 18           web_dynamic.2-hbnb:app
+ 19 # restart the service if it fails
+ 20 Restart=always
+ 21 # redirect standard output to the syslog
+ 22 StandardOutput=append:/tmp/airbnb-acess.log
+ 23 # redirect standadrd error to the syslog
+ 24 StandardError=append://tmp/airbnb-error.log
+ 25 # Identified for the syslog messages
+ 26 SyslogIdentifier=gunicorn
+ 27 
+ 28 [Install]
+ 29 # Enable the service for multi-user.target
+ 30 WantedBy=multi-user.target
